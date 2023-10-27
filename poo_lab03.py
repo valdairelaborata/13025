@@ -13,8 +13,9 @@ class ContaBancaria:
 
 
 contaA = ContaBancaria("João", 0)
-contaA.depositar(10)
+contaA.depositar(10)    
 print(contaA.saldo)
+
 
 contaA.sacar(20)
 print(contaA.saldo)
