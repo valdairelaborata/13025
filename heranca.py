@@ -53,7 +53,7 @@ carro1 = CarroEsportivo("Honda", "Civic", "2003", "240")
 carro1.acelerar(20)
 carro1.acelerar(120)
 
-carro1.velocidade = 250
+
 
 print(carro1.velocidade)
 
