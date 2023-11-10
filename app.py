@@ -19,6 +19,9 @@ class ContaBancaria:
         self.__saldo -= valor
 
 
+    def obter_saldo(self):
+        return self.__saldo
+
 
 
 class TesteContaBancaria(unittest.TestCase):
@@ -35,7 +38,7 @@ class TesteContaBancaria(unittest.TestCase):
         
     def teste_consulta_saldo(self):
         conta = ContaBancaria(500)
-        self.assertEqual(conta.saldo, 500)
+        self.assertEqual(conta.obter_saldo(), 500)
 
 
 unittest.main()
