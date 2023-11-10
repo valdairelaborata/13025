@@ -1,15 +1,34 @@
-import requests
+import unittest
 
+class Pessoa():
+    def __init__(self, nome, sobrenome, idade):
+        self.nome = nome
+        self.idade = idade
+        self.sobrenome = sobrenome
 
-response = requests.get("https://viacep.com.br/ws/81710230/json/")
-
-if response.status_code == 200:
-    data = response.json()
-    print(f'Olá eu moro na rua {data["logradouro"]}, no bairro {data["bairro"]}')
-   
-
-else:
-    print("Erro ao tentar fazer o get")
-
+    def apresentacao(self):
+        return f"Olá, eu sou {self.nome} e tenho {self.idade} anos."
     
+    def obter_nome_completo(self):
+        return f"{self.nome} {self.sobrenome}"
 
+
+
+class TestePessoa(unittest.TestCase):
+
+    def teste_apresentar(self):
+        pessoa = Pessoa("João", "Silva", 25)
+        apresentacao = pessoa.apresentacao()
+        self.assertEqual(apresentacao, "Olá, eu sou João e tenho 25 anos.")
+
+    def teste_obter_nome_completo(self):
+        pessoa = Pessoa("João", "Silva", 25)
+        nome_completo = pessoa.obter_nome_completo()
+        self.assertEqual(nome_completo, "João Silva")
+
+
+        
+
+
+
+unittest.main()        
