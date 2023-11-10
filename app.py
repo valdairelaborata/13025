@@ -1,34 +1,42 @@
 import unittest
 
-class Pessoa():
-    def __init__(self, nome, sobrenome, idade):
-        self.nome = nome
-        self.idade = idade
-        self.sobrenome = sobrenome
+class ContaBancaria:
 
-    def apresentacao(self):
-        return f"Olá, eu sou {self.nome} e tenho {self.idade} anos."
-    
-    def obter_nome_completo(self):
-        return f"{self.nome} {self.sobrenome}"
+    def __init__(self, saldo_inicial=0):
+        self.__saldo = saldo_inicial
+
+    @property
+    def saldo(self):
+        return self.__saldo
 
 
-
-class TestePessoa(unittest.TestCase):
-
-    def teste_apresentar(self):
-        pessoa = Pessoa("João", "Silva", 25)
-        apresentacao = pessoa.apresentacao()
-        self.assertEqual(apresentacao, "Olá, eu sou João e tenho 25 anos.")
-
-    def teste_obter_nome_completo(self):
-        pessoa = Pessoa("João", "Silva", 25)
-        nome_completo = pessoa.obter_nome_completo()
-        self.assertEqual(nome_completo, "João Silva")
+    def depositar(self, valor):
+        if valor > 0:
+            self.__saldo += valor
 
 
+    def sacar(self, valor):
+        self.__saldo -= valor
+
+
+
+
+class TesteContaBancaria(unittest.TestCase):
+
+    def teste_deposito(self):
+        conta = ContaBancaria(50)
+        conta.depositar(50)
+        self.assertEqual(conta.saldo, 100)
+
+    def teste_sacar(self):
+        conta = ContaBancaria(200)
+        conta.sacar(50)
+        self.assertEqual(conta.saldo, 150)
         
+    def teste_consulta_saldo(self):
+        conta = ContaBancaria(500)
+        self.assertEqual(conta.saldo, 500)
 
 
+unittest.main()
 
-unittest.main()        
