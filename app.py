@@ -2,10 +2,12 @@
 from datetime import datetime
 
 import math
+from Recursos_Humanos.Colaborador import Colaborador
 from cadastro.Pessoa import Pessoa
 from cadastro.Produto import Produto
 
 from calculadora.calculo import somar, subtrair
+from financeiro.contas_pagar import ContasPagar
 
 pessoa = Pessoa("Maria")
 print(pessoa)
@@ -37,3 +39,9 @@ arredondado = round(4.7)  # Retorna 5
 
 agora = datetime.now()
 print(agora)
+
+contas_pagar = ContasPagar()
+
+print(contas_pagar)
+
+colaborador = Colaborador()
