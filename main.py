@@ -1,10 +1,10 @@
+# Configure a URL de conexão com o banco de dados
+# Para SQLite (banco de dados em arquivo):
 
 
-from contabancaria.conta import Conta
+from sqlalchemy import create_engine
 
 
-conta = Conta("321321", 0)
-conta.deposito(50)
-conta.saque(20)
+DATABASE_URL = "sqlite:///pedidos.db"
 
-print(conta)
+engine =  create_engine(DATABASE_URL)
