@@ -1,10 +1,9 @@
-# Configure a URL de conexão com o banco de dados
-# Para SQLite (banco de dados em arquivo):
+from services.cliente import incluir, buscar_por_nome, excluir, alterar
 
+incluir("Teste 010", "teste010@gmail.com")
 
-from sqlalchemy import create_engine
+buscar_por_nome("Maria")
 
+alterar(3, "Maria", "maria@gmail.com")
 
-DATABASE_URL = "sqlite:///pedidos.db"
-
-engine =  create_engine(DATABASE_URL)
+excluir(3)
