@@ -1,9 +1,25 @@
-from services.cliente import incluir, buscar_por_nome, excluir, alterar
+from fastapi import FastAPI
 
-incluir("Teste 011", "teste011@gmail.com")
 
-buscar_por_nome("Maria")
+app = FastAPI()
 
-alterar(3, "Teste 009", "teste009@gmail.com")
 
-excluir(3)
+@app.get("/")
+def root():
+    return f"Root da aplicação."
+
+@app.get("/clientes")
+def listar():
+    return f"Opa, chegou aqui!"
+
+@app.post("/clientes")
+def incluir():
+    return f"Registro incluído com sucesso!"
+
+@app.put("/clientes")
+def incluir():
+    return f"Registro alterado com sucesso!"
+
+@app.delete("/clientes")
+def incluir():
+    return f"Registro excluído com sucesso! "
