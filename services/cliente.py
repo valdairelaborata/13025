@@ -33,7 +33,6 @@ def excluir(id):
     db.commit()
     db.close()
 
-
 def alterar(id, nome, email):
     db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.id == id).first()
