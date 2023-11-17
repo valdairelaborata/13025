@@ -1,7 +1,14 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 
 app = FastAPI()
+
+
+class ClienteView(BaseModel):
+    nome: str
+    email: str
+    
 
 
 @app.get("/")
@@ -17,13 +24,14 @@ def listar(id):
     return f"Opa, chegou aqui! {id}"
 
 @app.post("/clientes")
-def incluir():
-    return f"Registro incluído com sucesso!"
+def incluir(clienteView: ClienteView):
+    # consumir um service
+    return f"Registro incluído com sucesso! Nome: {clienteView.nome} - email: {clienteView.email}"
 
 @app.put("/clientes")
-def incluir():
+def alterar():
     return f"Registro alterado com sucesso!"
 
 @app.delete("/clientes")
-def incluir():
+def excluir():
     return f"Registro excluído com sucesso! "
