@@ -12,6 +12,10 @@ def root():
 def listar():
     return f"Opa, chegou aqui!"
 
+@app.get("/clientes/{id}")
+def listar(id):
+    return f"Opa, chegou aqui! {id}"
+
 @app.post("/clientes")
 def incluir():
     return f"Registro incluído com sucesso!"
