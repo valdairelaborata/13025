@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from services.cliente import incluir, buscar_por_id
+from services.infra import get_db
 
 
 app = FastAPI()
@@ -22,12 +23,12 @@ def listar():
     return f"Opa, chegou aqui!"
 
 @app.get("/clientes/{id}", response_model = ClienteView)
-def listar(id):
-    return buscar_por_id(id)
+def listar(id, db: Session = Depends(get_db)):
+    return buscar_por_id(id, db)
 
 @app.post("/clientes")
-def salvar(clienteView: ClienteView):#, db: Session = Depends(get_db)):
-    incluir(clienteView.nome, clienteView.email)
+def salvar(clienteView: ClienteView, db: Session = Depends(get_db)):
+    incluir(clienteView.nome, clienteView.email, db)
 
     return f"Registro incluído com sucesso! Nome: {clienteView.nome} - email: {clienteView.email}"
 

@@ -1,61 +1,55 @@
 from sqlalchemy import create_engine
 from models.cliente import Base, Cliente
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 
 DATABASE_URL = "sqlite:///pedidos.db"
 
-engine =  create_engine(DATABASE_URL)
-Base.metadata.create_all(bind=engine)
+# engine =  create_engine(DATABASE_URL)
+# Base.metadata.create_all(bind=engine)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# def get_db():
-#     db: SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
+# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def incluir(nome, email):
-    db = SessionLocal()
+
+def incluir(nome, email, db: Session):
+    # db = SessionLocal()
     novo_cliente = Cliente(nome=nome, email=email)
     db.add(novo_cliente)
     db.commit()
     db.refresh(novo_cliente)
-    db.close()
+    # db.close()
 
-def buscar_por_id(id):
-    db = SessionLocal()
+def buscar_por_id(id, db: Session):
+    # db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.id == id).first()
     if cliente:
         print(f'Olá, eu sou o cliente {cliente.id} - {cliente.nome} - {cliente.email}')
         return cliente
     else:
         print(f"Cliente não encontrado com o id - {id}")
-    db.close()
+    # db.close()
 
 
-def buscar_por_nome(nome):
-    db = SessionLocal()
+def buscar_por_nome(nome, db: Session):
+    # db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.nome == nome).first()
     if cliente:
         print(f'Olá, eu sou o cliente {cliente.id} - {cliente.nome} - {cliente.email}')
     else:
         print(f"Cliente não encontrado com o nome - {nome}")
-    db.close()
+    # db.close()
 
-def excluir(id):
-    db = SessionLocal()
+def excluir(id, db: Session):
+    # db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.id == id).first()
     db.delete(cliente)
     db.commit()
-    db.close()
+    # db.close()
 
-def alterar(id, nome, email):
-    db = SessionLocal()
+def alterar(id, nome, email, db: Session):
+    # db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.id == id).first()
     cliente.nome = nome
     cliente.email = email
     db.commit()
-    db.close()
+    # db.close()
