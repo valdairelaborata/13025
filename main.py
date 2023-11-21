@@ -1,26 +1,21 @@
 from fastapi import Depends, FastAPI
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from services.cliente import incluir, buscar_por_id
+from services.cliente import atualizar, buscar_todos, incluir, buscar_por_id, remover
 from services.infra import get_db
+from views.cliente import ClienteView
 
 
 app = FastAPI()
-
-
-class ClienteView(BaseModel):
-    nome: str
-    email: str
-    
+  
 
 @app.get("/")
 def root():
     return f"Root da aplicação."
 
 @app.get("/clientes")
-def listar():
-    return f"Opa, chegou aqui!"
+def listar(db: Session = Depends(get_db)):
+    return buscar_todos(db)
 
 @app.get("/clientes/{id}", response_model = ClienteView)
 def listar(id, db: Session = Depends(get_db)):
@@ -32,10 +27,12 @@ def salvar(clienteView: ClienteView, db: Session = Depends(get_db)):
 
     return f"Registro incluído com sucesso! Nome: {clienteView.nome} - email: {clienteView.email}"
 
-@app.put("/clientes")
-def alterar():
+@app.put("/clientes/{id}")
+def alterar(id, clienteView: ClienteView, db: Session = Depends(get_db)):
+    atualizar(id, clienteView, db)
     return f"Registro alterado com sucesso!"
 
-@app.delete("/clientes")
-def excluir():
+@app.delete("/clientes/{id}")
+def excluir(id, db: Session = Depends(get_db)):
+    remover(id, db)
     return f"Registro excluído com sucesso! "

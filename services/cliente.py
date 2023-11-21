@@ -2,6 +2,8 @@ from sqlalchemy import create_engine
 from models.cliente import Base, Cliente
 from sqlalchemy.orm import sessionmaker, Session
 
+from views.cliente import ClienteView
+
 DATABASE_URL = "sqlite:///pedidos.db"
 
 # engine =  create_engine(DATABASE_URL)
@@ -9,7 +11,9 @@ DATABASE_URL = "sqlite:///pedidos.db"
 
 # SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-
+def buscar_todos(db: Session):
+    clientes = db.query(Cliente).all()
+    return clientes
 
 def incluir(nome, email, db: Session):
     # db = SessionLocal()
@@ -39,17 +43,17 @@ def buscar_por_nome(nome, db: Session):
         print(f"Cliente não encontrado com o nome - {nome}")
     # db.close()
 
-def excluir(id, db: Session):
+def remover(id, db: Session):
     # db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.id == id).first()
     db.delete(cliente)
     db.commit()
     # db.close()
 
-def alterar(id, nome, email, db: Session):
+def atualizar(id, clienteView: ClienteView, db: Session):
     # db = SessionLocal()
     cliente = db.query(Cliente).filter(Cliente.id == id).first()
-    cliente.nome = nome
-    cliente.email = email
+    cliente.nome = clienteView.nome
+    cliente.email = clienteView.email
     db.commit()
     # db.close()
