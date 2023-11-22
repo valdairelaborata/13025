@@ -3,3 +3,6 @@ python -m venv ORM
 
 2 - Ativar o ambiente virtual
 Acionar o script [.\Scripts\activate] que está dentro do ambiente virtual
+
+3 - Instalar o SQLAlchemy
+pip install sqlalchemy
